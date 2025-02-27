@@ -1,0 +1,7 @@
+services:
+  competencia:
+    container_name: competencia_web
+    build: ./
+    ports:
+      - 8000:80
+    restart: always
