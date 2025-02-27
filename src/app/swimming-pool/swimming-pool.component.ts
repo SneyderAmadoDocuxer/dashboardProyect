@@ -30,7 +30,8 @@ export class SwimmingPoolComponent implements OnInit {
 
   crearGrafico() {
     const nombres = this.nadadores.map(n => n.nombre);
-    const avances = this.nadadores.map(n => Math.round((n.acumulado / n.meta) * 100));
+    const avances = this.nadadores.map(n => Math.round((n.acumulado / this.meta) * 100));
+
 
     this.chartOptions = {
       chart: {

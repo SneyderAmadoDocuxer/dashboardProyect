@@ -1,13 +1,12 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-12">
-      <h1>Competencia de Natación 🏊‍♂️</h1>
+      <h1 class="center">Competencia de Natación 🏊‍♂️</h1>
     </div>
   </div>
   <div class="row">
     <div class="col-8">
       <div class="piscina-container">
-        <h2>Competencia de Natación 🏊‍♂️</h2>
         <apx-chart
           [series]="chartOptions.series"
           [chart]="chartOptions.chart"
@@ -24,7 +23,7 @@
         <form>
           <div class="row input-group mb-3">
             <label  class="col-form-label" for="meta">Meta</label>
-            <input class="form-control" type="text" id="meta" name="meta" [(ngModel)]="meta" pattern="[0-9]+"/>
+            <input class="form-control" type="text" id="meta" name="meta" [(ngModel)]="meta" pattern="[0-9]+" (change)="crearGrafico()"/>
           </div>
         </form>
           <div class="row">
