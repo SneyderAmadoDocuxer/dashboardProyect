@@ -1,6 +1,7 @@
 .piscina-container {
   text-align: center;
   width: 100%;
+  height: 90%;
   margin: auto;
   background: url('../../../public/piscina.jpg') no-repeat center;
   background-size: cover;

@@ -6,6 +6,6 @@ COPY . .
 RUN npm run build
 
 FROM nginx:alpine as prod
-EXPOSE 80
+EXPOSE 8000
 COPY --from=dev-deps app/dist/dashboard-proyect/browser /usr/share/nginx/html
 COPY  ./nginx-custom.conf /etc/nginx/conf.d/default.conf

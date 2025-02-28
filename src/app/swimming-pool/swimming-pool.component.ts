@@ -55,7 +55,7 @@ export class SwimmingPoolComponent implements OnInit {
           style: {
             fontSize: '18px',  // Aumenta el tamaño del texto
             fontWeight: 'bold',
-            colors: ['#FF5733'] // Cambia el color (puedes usar HEX, RGB o nombre de color)
+            colors: ['#4e3150'] // Cambia el color (puedes usar HEX, RGB o nombre de color)
           }
         }
       },
@@ -64,7 +64,7 @@ export class SwimmingPoolComponent implements OnInit {
           style: {
             fontSize: '18px',  // Aumenta el tamaño del texto
             fontWeight: 'bold',
-            colors: ['#FF5733'] // Cambia el color (puedes usar HEX, RGB o nombre de color)
+            colors: ['#333237'] // Cambia el color (puedes usar HEX, RGB o nombre de color)
           }
         }
       },
@@ -86,7 +86,7 @@ export class SwimmingPoolComponent implements OnInit {
         data: avances
       }],
       fill: {
-        colors: ['#007bff', '#28a745', '#dc3545']
+        colors: ['#fbf6b5', '#28a745', '#dc3545']
       }
     };
   }
