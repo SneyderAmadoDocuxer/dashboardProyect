@@ -23,7 +23,7 @@
         <form>
           <div class="row input-group mb-3">
             <label  class="col-form-label" for="meta">Meta</label>
-            <input class="form-control" type="text" id="meta" name="meta" [(ngModel)]="meta" pattern="[0-9]+" (change)="crearGrafico()"/>
+            <input class="form-control" type="text" id="meta" name="meta" mask="separator.2" prefix="$ " thousandSeparator="," [(ngModel)]="meta" pattern="[0-9]+" (change)="crearGrafico()"/>
           </div>
         </form>
           <div class="row">
@@ -38,7 +38,7 @@
                 <tr *ngFor="let nadador of nadadores">
                   <td>{{nadador.nombre}}</td>
                   <td>
-                    <input class="form-control" type="text" id="acumulado" name="acumulado" [(ngModel)]="nadador.acumulado" pattern="[0-9]+" (change)="crearGrafico()"/>
+                    <input class="form-control" type="text" id="acumulado" name="acumulado" [(ngModel)]="nadador.acumulado" mask="separator.2" prefix="$ " thousandSeparator="," pattern="[0-9]+" (change)="crearGrafico()"/>
                   </td>
                 </tr>
               </tbody>
@@ -47,7 +47,5 @@
       </div>
     </div>
   </div>
-
-
 </div>
 

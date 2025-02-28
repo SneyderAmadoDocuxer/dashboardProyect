@@ -1,14 +1,14 @@
 import { Component , OnInit } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
 import { ApexChart, ApexXAxis, ApexDataLabels, ApexPlotOptions, ApexStroke, ApexFill, NgApexchartsModule } from 'ng-apexcharts';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Nadador } from '../models/nadador';
-
+import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
 @Component({
   selector: 'app-swimming-pool',
   standalone: true,
-  imports: [ CommonModule, FormsModule, ReactiveFormsModule, NgApexchartsModule],
+  imports: [ CommonModule, FormsModule, ReactiveFormsModule, NgApexchartsModule ,NgxMaskDirective, NgxMaskPipe],
+  providers: [provideNgxMask()],
   templateUrl: './swimming-pool.component.html',
   styleUrl: './swimming-pool.component.css'
 })
@@ -17,11 +17,11 @@ export class SwimmingPoolComponent implements OnInit {
   meta = 10000;
   // Datos de los nadadores
   nadadores: Nadador[] = [
-    { nombre: 'Claudia', meta: this.meta, acumulado: 6000 },
-    { nombre: 'Andrea', meta: this.meta, acumulado: 9000 },
-    { nombre: 'Paola', meta: this.meta, acumulado: 3000 },
-    { nombre: 'Carolina', meta: this.meta, acumulado: 1000 },
-    { nombre: 'Jhon', meta: this.meta, acumulado: 1500 }
+    { nombre: 'Claudia', meta: this.meta, acumulado: 6000, foto: '../../../public/nadador.svg' },
+    { nombre: 'Andrea', meta: this.meta, acumulado: 9000, foto: '../../../public/nadador.svg' },
+    { nombre: 'Paola', meta: this.meta, acumulado: 3000, foto: '../../../public/nadador.svg' },
+    { nombre: 'Carolina', meta: this.meta, acumulado: 1000, foto: '../../../public/nadador.svg' },
+    { nombre: 'Jhon', meta: this.meta, acumulado: 1500, foto: '../../../public/nadador.svg' }
   ];
   constructor() { }
   ngOnInit() {
@@ -31,7 +31,7 @@ export class SwimmingPoolComponent implements OnInit {
   crearGrafico() {
     const nombres = this.nadadores.map(n => n.nombre);
     const avances = this.nadadores.map(n => Math.round((n.acumulado / this.meta) * 100));
-
+    const fotos = this.nadadores.map(n => n.foto);
 
     this.chartOptions = {
       chart: {
@@ -70,7 +70,16 @@ export class SwimmingPoolComponent implements OnInit {
       },
       dataLabels: {
         enabled: true,
-        formatter: (val: number) => `${val}%`
+        useHTML: true,
+        formatter: (val: number, opts: any) => {
+          const index = opts.dataPointIndex;
+          return `${val}%`;
+        },
+        style: {
+          fontSize: '16px',
+          fontWeight: 'bold',
+          colors: ['#000']
+        }
       },
       series: [{
         name: 'Progreso',
