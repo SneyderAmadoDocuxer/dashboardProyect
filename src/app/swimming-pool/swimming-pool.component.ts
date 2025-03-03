@@ -3,11 +3,25 @@ import { ApexChart, ApexXAxis, ApexDataLabels, ApexPlotOptions, ApexStroke, Apex
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Nadador } from '../models/nadador';
-import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
+import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
+import { Colors, Legend } from 'chart.js';
+import { title } from 'process';
+import { url } from 'inspector';
+
+export type ChartOptions = {
+  series: ApexAxisChartSeries;
+  chart: ApexChart;
+  xaxis: ApexXAxis;
+  dataLabels: ApexDataLabels;
+  plotOptions: ApexPlotOptions;
+  stroke: ApexStroke;
+  fill: ApexFill;
+  title: ApexTitleSubtitle;
+};
 @Component({
   selector: 'app-swimming-pool',
   standalone: true,
-  imports: [ CommonModule, FormsModule, ReactiveFormsModule, NgApexchartsModule ,NgxMaskDirective, NgxMaskPipe],
+  imports: [ CommonModule, FormsModule, ReactiveFormsModule, NgApexchartsModule ,NgxMaskDirective],
   providers: [provideNgxMask()],
   templateUrl: './swimming-pool.component.html',
   styleUrl: './swimming-pool.component.css'
@@ -30,16 +44,46 @@ export class SwimmingPoolComponent implements OnInit {
 
   crearGrafico() {
     const nombres = this.nadadores.map(n => n.nombre);
-    const avances = this.nadadores.map(n => Math.round((n.acumulado / this.meta) * 100));
+    const avances = this.nadadores.map(n => Math.round((n.acumulado / n.meta) * 100));
+    const acumulados = this.nadadores.map(n => n.acumulado);
+    const metas = this.nadadores.map(n => n.meta / n.meta * 100);
     const fotos = this.nadadores.map(n => n.foto);
+    const background = '../../../public/piscina.jpg';
+
+    const data = this.nadadores.map((n, i) => {
+      return {
+        x: nombres[i],
+        y: avances[i],
+        goals: [
+          {
+            name: 'Meta',
+            value: metas[i] ,
+            strokeWidth: 10,
+            strokeHeight: 10,
+            strokeColor: '#6fc54c',
+            image: fotos[i]
+          }
+        ]
+      };
+    }
+    );
 
     this.chartOptions = {
       chart: {
+        height: 420,
         type: 'bar',
         animations: {
           enabled: true,
           easing: 'easeinout',
-          speed: 2000
+          speed: 2000,
+          animateGradually: {
+            enabled: true,
+            delay: 150
+          },
+          dynamicAnimation: {
+              enabled: true,
+              speed: 350
+          }
         }
       },
       plotOptions: {
@@ -50,7 +94,7 @@ export class SwimmingPoolComponent implements OnInit {
       },
       xaxis: {
         categories: nombres,
-        max: 100,
+        max: 110,
         labels: {
           style: {
             fontSize: '18px',  // Aumenta el tamaño del texto
@@ -64,16 +108,27 @@ export class SwimmingPoolComponent implements OnInit {
           style: {
             fontSize: '18px',  // Aumenta el tamaño del texto
             fontWeight: 'bold',
-            colors: ['#333237'] // Cambia el color (puedes usar HEX, RGB o nombre de color)
+            colors: ['#33237'] // Cambia el color (puedes usar HEX, RGB o nombre de color)
           }
         }
       },
       dataLabels: {
         enabled: true,
         useHTML: true,
-        formatter: (val: number, opts: any) => {
-          const index = opts.dataPointIndex;
-          return `${val}%`;
+        formatter: function(val:number, opt:any) {
+            const goals =
+              opt.w.config.series[opt.seriesIndex].data[opt.dataPointIndex]
+                .goals
+
+            /*if (goals && goals.length) {
+              return `${val} / ${goals[0].value}`
+            }*/
+           return `$${acumulados[opt.dataPointIndex]} - ${val}% `;
+        },
+        Legend: {
+          show: true,
+          showForSingleSeries: true,
+          customLegendItems: ['Progreso', 'Expected'],
         },
         style: {
           fontSize: '16px',
@@ -83,8 +138,9 @@ export class SwimmingPoolComponent implements OnInit {
       },
       series: [{
         name: 'Progreso',
-        data: avances
-      }],
+        data: data
+      }
+      ],
       fill: {
         colors: ['#fbf6b5', '#28a745', '#dc3545']
       }
