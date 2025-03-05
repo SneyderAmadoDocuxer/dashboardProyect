@@ -4,9 +4,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Nadador } from '../models/nadador';
 import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
-import { Colors, Legend } from 'chart.js';
-import { title } from 'process';
-import { url } from 'inspector';
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
@@ -31,11 +28,11 @@ export class SwimmingPoolComponent implements OnInit {
   meta = 10000;
   // Datos de los nadadores
   nadadores: Nadador[] = [
-    { nombre: 'Claudia', meta: this.meta, acumulado: 6000, foto: '../../../public/nadador.svg' },
-    { nombre: 'Andrea', meta: this.meta, acumulado: 9000, foto: '../../../public/nadador.svg' },
-    { nombre: 'Paola', meta: this.meta, acumulado: 3000, foto: '../../../public/nadador.svg' },
-    { nombre: 'Carolina', meta: this.meta, acumulado: 1000, foto: '../../../public/nadador.svg' },
-    { nombre: 'Jhon', meta: this.meta, acumulado: 1500, foto: '../../../public/nadador.svg' }
+    { nombre: 'Claudia', meta: this.meta, acumulado: 6000, foto: '../../assets/nadador.svg' },
+    { nombre: 'Andrea', meta: this.meta, acumulado: 9000, foto: '../../assets/nadador.svg' },
+    { nombre: 'Paola', meta: this.meta, acumulado: 3000, foto: '../../assets/nadador.svg' },
+    { nombre: 'Carolina', meta: this.meta, acumulado: 1000, foto: '../../assets/nadador.svg' },
+    { nombre: 'Jhon', meta: this.meta, acumulado: 1500, foto: '../../assets/nadador.svg' }
   ];
   constructor() { }
   ngOnInit() {
