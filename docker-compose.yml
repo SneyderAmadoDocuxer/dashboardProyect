@@ -1,7 +1,15 @@
 services:
   competencia:
     container_name: competencia_web
-    build: ./
+    build: .
     ports:
       - 8000:8000
     restart: always
+    deploy:
+      resources:
+        limits:
+          cpus: "1.5"
+          memory: "512M"
+        reservations:
+          cpus: "0.5"
+          memory: "256M"
